@@ -8,24 +8,6 @@ from sklearn.metrics import accuracy_score
 
 
 
-# import cPickle
-# import gzip
-
-# def load(file_name):
-#     # load the model
-#     stream = gzip.open(file_name, "rb")
-#     model = cPickle.load(stream)
-#     stream.close()
-#     return model
-
-
-# def save(file_name, model):
-#     # save the model
-#     stream = gzip.open(file_name, "wb")
-#     cPickle.dump(model, stream)
-#     stream.close()
-
-
 def make_Dictionary(root_dir):
     all_words = []
     emails = [os.path.join(root_dir,f) for f in os.listdir(root_dir)]
@@ -86,14 +68,12 @@ print("reading and processing emails from file.")
 features_matrix, labels = extract_features(TRAIN_DIR)
 test_feature_matrix, test_labels = extract_features(TEST_DIR)
 
-#features_matrix = features_matrix[:len(features_matrix)/10]
-#labels = labels[:len(labels)/10]
 
 
 model = svm.SVC(kernel="rbf", C=100, gamma=0.001)
 
 print("Training model.")
-#train model
+
 model.fit(features_matrix, labels)
 
 predicted_labels = model.predict(test_feature_matrix)
